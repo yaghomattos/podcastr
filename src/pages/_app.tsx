@@ -9,6 +9,8 @@ function MyApp({ Component, pageProps }) {
   const [episodeList, setEpisodeList] = useState([]);
   const [currentEpisodeIndex, SetCurrentEpisodeIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isLooping, setIsLooping] = useState(false);
+  const [isShuffling, setIsShuffling] = useState(false);
 
   const hasNext = currentEpisodeIndex + 1 < episodeList.length;
   const hasPrevious = currentEpisodeIndex > 0;
@@ -29,12 +31,25 @@ function MyApp({ Component, pageProps }) {
     setIsPlaying(!isPlaying);
   }
 
+  function toggleLoop() {
+    setIsLooping(!isLooping);
+  }
+
+  function toggleShuffle() {
+    setIsShuffling(!isShuffling);
+  }
+
   function setPlayingState(state: boolean) {
     setIsPlaying(state);
   }
 
   function playNext() {
-    if (hasNext) SetCurrentEpisodeIndex(currentEpisodeIndex + 1);
+    if (isShuffling) {
+      const nextRandomEpisodeIndex = Math.floor(
+        Math.random() * episodeList.length
+      );
+      SetCurrentEpisodeIndex(nextRandomEpisodeIndex);
+    } else if (hasNext) SetCurrentEpisodeIndex(currentEpisodeIndex + 1);
   }
 
   function playPrevious() {
@@ -48,7 +63,11 @@ function MyApp({ Component, pageProps }) {
         currentEpisodeIndex,
         play,
         isPlaying,
+        isLooping,
+        isShuffling,
         togglePlay,
+        toggleLoop,
+        toggleShuffle,
         setPlayingState,
         playList,
         playNext,
