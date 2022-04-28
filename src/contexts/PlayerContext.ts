@@ -13,8 +13,13 @@ type PlayerConstData = {
   currentEpisodeIndex: number;
   isPlaying: boolean;
   play: (episode: Episode) => void;
-  togglePlay: () => void;
+  playList: (episode: Episode[], index: number) => void;
   setPlayingState: (state: boolean) => void;
+  togglePlay: () => void;
+  playNext: () => void;
+  playPrevious: () => void;
+  hasNext: boolean;
+  hasPrevious: boolean;
 };
 
 export const PlayerContext = createContext({} as PlayerConstData);
