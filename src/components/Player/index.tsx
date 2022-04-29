@@ -23,6 +23,7 @@ export function Player() {
     playPrevious,
     hasNext,
     hasPrevious,
+    clearPlayerState,
   } = useContext(PlayerContext);
 
   const [progress, setProgress] = useState(0);
@@ -47,6 +48,11 @@ export function Player() {
   function handleSeek(amount: number) {
     audioRef.current.currentTime = amount;
     setProgress(amount);
+  }
+
+  function handleEpisodeEnded() {
+    if (hasNext) playNext;
+    else clearPlayerState();
   }
 
   return (
@@ -99,6 +105,7 @@ export function Player() {
             ref={audioRef}
             loop={isLooping}
             autoPlay
+            onEnded={handleEpisodeEnded}
             onPlay={() => setPlayingState(true)}
             onPause={() => setPlayingState(false)}
             onLoadedMetadata={setupProgressListener}

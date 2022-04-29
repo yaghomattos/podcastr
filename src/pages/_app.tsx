@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps }) {
   const [isLooping, setIsLooping] = useState(false);
   const [isShuffling, setIsShuffling] = useState(false);
 
-  const hasNext = currentEpisodeIndex + 1 < episodeList.length;
+  const hasNext = isShuffling || currentEpisodeIndex + 1 < episodeList.length;
   const hasPrevious = currentEpisodeIndex > 0;
 
   function play(episode) {
@@ -56,6 +56,11 @@ function MyApp({ Component, pageProps }) {
     if (hasPrevious) SetCurrentEpisodeIndex(currentEpisodeIndex - 1);
   }
 
+  function clearPlayerState() {
+    setEpisodeList([]);
+    SetCurrentEpisodeIndex(0);
+  }
+
   return (
     <PlayerContext.Provider
       value={{
@@ -74,6 +79,7 @@ function MyApp({ Component, pageProps }) {
         playPrevious,
         hasNext,
         hasPrevious,
+        clearPlayerState,
       }}
     >
       <div className={styles.wrapper}>
