@@ -1,11 +1,11 @@
 import { createContext } from 'react';
 
 type Episode = {
-  title: String;
-  members: String;
-  thumbnail: String;
-  duration: Number;
-  url: String;
+  title: string;
+  members: string;
+  thumbnail: string;
+  duration: number;
+  url: string;
 };
 
 type PlayerConstData = {
